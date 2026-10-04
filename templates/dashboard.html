@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <div>
+
+        <h1>
+            Welcome, {{ session["user_name"] }} 👋
+        </h1>
+
+        <p>
+            Manage your contacts easily.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <h3>Total Contacts</h3>
+
+        <strong>
+            {{ total }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>⭐ Favorites</h3>
+
+        <strong>
+            {{ favorites }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<div class="search-box">
+
+    <form action="{{ url_for('search') }}" method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search name, email, phone or company..."
+            value="{{ search_query|default('') }}"
+        >
+
+        <button type="submit">
+            🔍 Search
+        </button>
+
+    </form>
+
+</div>
+
+
+<div class="contact-header">
+
+    <h2>
+        Contacts
+    </h2>
+
+    <a
+        class="btn"
+        href="{{ url_for('add_contact') }}"
+    >
+        + Add Contact
+    </a>
+
+</div>
+
+
+<div class="contact-grid">
+
+    {% for contact in contacts %}
+
+    <div class="contact-card">
+
+        <div class="contact-top">
+
+            <div class="avatar">
+                {{ contact["name"][0]|upper }}
+            </div>
+
+            <div>
+
+                <h3>
+                    {{ contact["name"] }}
+                </h3>
+
+                <span class="category">
+                    {{ contact["category"] }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        {% if contact["email"] %}
+
+        <p>
+            📧 {{ contact["email"] }}
+        </p>
+
+        {% endif %}
+
+
+        {% if contact["phone"] %}
+
+        <p>
+            📞 {{ contact["phone"] }}
+        </p>
+
+        {% endif %}
+
+
+        {% if contact["company"] %}
+
+        <p>
+            🏢 {{ contact["company"] }}
+        </p>
+
+        {% endif %}
+
+
+        {% if contact["address"] %}
+
+        <p>
+            📍 {{ contact["address"] }}
+        </p>
+
+        {% endif %}
+
+
+        <div class="actions">
+
+            <a
+                href="{{ url_for('favorite_contact', contact_id=contact['id']) }}"
+                class="favorite"
+            >
+                {% if contact["is_favorite"] %}
+                    ⭐
+                {% else %}
+                    ☆
+                {% endif %}
+            </a>
+
+
+            <a
+                href="{{ url_for('edit_contact', contact_id=contact['id']) }}"
+                class="edit"
+            >
+                ✏️ Edit
+            </a>
+
+
+            <a
+                href="{{ url_for('delete_contact', contact_id=contact['id']) }}"
+                class="delete"
+                onclick="return confirmDelete()"
+            >
+                🗑️ Delete
+            </a>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty">
+
+        <h2>
+            No contacts found
+        </h2>
+
+        <p>
+            Add your first contact.
+        </p>
+
+        <a
+            class="btn"
+            href="{{ url_for('add_contact') }}"
+        >
+            Add Contact
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

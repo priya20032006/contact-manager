@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Contact
+{% endblock %}
+
+{% block content %}
+
+<div class="form-box">
+
+    <h1>➕ Add Contact</h1>
+
+    <form method="POST">
+
+        <label>Name *</label>
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Full name"
+            required
+        >
+
+
+        <label>Email</label>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email address"
+        >
+
+
+        <label>Phone</label>
+
+        <input
+            type="text"
+            name="phone"
+            placeholder="Phone number"
+        >
+
+
+        <label>Address</label>
+
+        <textarea
+            name="address"
+            placeholder="Address"
+        ></textarea>
+
+
+        <label>Company</label>
+
+        <input
+            type="text"
+            name="company"
+            placeholder="Company name"
+        >
+
+
+        <label>Category</label>
+
+        <select name="category">
+
+            <option value="Family">
+                Family
+            </option>
+
+            <option value="Friends">
+                Friends
+            </option>
+
+            <option value="Work">
+                Work
+            </option>
+
+            <option value="College">
+                College
+            </option>
+
+            <option value="Business">
+                Business
+            </option>
+
+            <option value="Other" selected>
+                Other
+            </option>
+
+        </select>
+
+
+        <label>Notes</label>
+
+        <textarea
+            name="notes"
+            placeholder="Additional notes"
+        ></textarea>
+
+
+        <button type="submit">
+            Save Contact
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

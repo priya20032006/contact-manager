@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Contact
+{% endblock %}
+
+{% block content %}
+
+<div class="form-box">
+
+    <h1>✏️ Edit Contact</h1>
+
+    <form method="POST">
+
+        <label>Name *</label>
+
+        <input
+            type="text"
+            name="name"
+            value="{{ contact['name'] }}"
+            required
+        >
+
+
+        <label>Email</label>
+
+        <input
+            type="email"
+            name="email"
+            value="{{ contact['email'] }}"
+        >
+
+
+        <label>Phone</label>
+
+        <input
+            type="text"
+            name="phone"
+            value="{{ contact['phone'] }}"
+        >
+
+
+        <label>Address</label>
+
+        <textarea name="address">{{ contact['address'] }}</textarea>
+
+
+        <label>Company</label>
+
+        <input
+            type="text"
+            name="company"
+            value="{{ contact['company'] }}"
+        >
+
+
+        <label>Category</label>
+
+        <select name="category">
+
+            {% for category in [
+                'Family',
+                'Friends',
+                'Work',
+                'College',
+                'Business',
+                'Other'
+            ] %}
+
+            <option
+                value="{{ category }}"
+                {% if contact['category'] == category %}
+                selected
+                {% endif %}
+            >
+                {{ category }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <label>Notes</label>
+
+        <textarea name="notes">{{ contact['notes'] }}</textarea>
+
+
+        <button type="submit">
+            Update Contact
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
